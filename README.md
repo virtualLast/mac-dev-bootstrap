@@ -186,3 +186,11 @@ Typically under `~/.config/composer` (Composer 2) or `~/.composer` (older versio
 ## License
 
 ISC (see `package.json`). Adjust as needed.
+
+### Coming soon:
+ - git hub cli
+ - gh cli set up
+ - multi project downloader
+ - aws cli and set up
+ - lf vpn stuff
+ - can we create a script to import all the database config
