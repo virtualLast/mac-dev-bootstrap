@@ -42,7 +42,6 @@ alias gitconfig="code ~/.gitconfig"
 # ---------------------------------------
 # Git Aliases
 # ---------------------------------------
-# Git shortcuts
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
@@ -61,6 +60,13 @@ alias gd='git diff'
 alias gds='git diff --staged'
 alias glog='git log --oneline --graph --decorate --all'
 alias gss='git show --stat'
+
+# ---------------------------------------
+# Exa / ls replacements
+# ---------------------------------------
+alias ls='exa'
+alias ll='exa -la --git'
+alias la='exa -a'
 
 
 # ---------------------------------------
@@ -81,3 +87,23 @@ setopt HIST_NO_STORE
 # ---------------------------------------
 export PHP_CS_FIXER_IGNORE_ENV=1
 export GIT_MERGE_AUTOEDIT=no
+
+# ---------------------------------------
+# Tab completion
+# ---------------------------------------
+autoload -Uz compinit
+compinit
+# Git completion
+[ -f ~/.git-completion.zsh ] && source ~/.git-completion.zsh
+
+# ---------------------------------------
+# Zsh plugins replacements
+# ---------------------------------------
+# zsh-autosuggestions
+[ -f $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && \
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+
+# zsh-syntax-highlighting (must be last)
+[ -f $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && \
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
