@@ -51,21 +51,15 @@ With this, you’ll have all required CLI tools, Node versions, PHP extensions, 
 
 ## Prerequisites
 
-* **Xcode Command Line Tools**: Needed for building PHP/PECL extensions
-
-  ```
-  ```
-
+- **Xcode Command Line Tools**: Needed for building PHP/PECL extensions
+```bash
 xcode-select --install
-
 ```
 - **Homebrew**:  
-```
-
+```bash
 /bin/bash -c "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh](https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh))"
 echo 'eval "$($(brew --prefix)/bin/brew shellenv)"' >> ~/.zprofile
 eval "$($(brew --prefix)/bin/brew shellenv)"
-
 ````
 
 > The Makefile will check for both Xcode CLTs and Homebrew and guide you if something is missing.
@@ -105,32 +99,12 @@ make php-ext-xdebug
 * Install Composer global tools:
 
 ```bash
-composer global install
-# or
 composer run-script install-global
 ```
 
 ---
 
 ## Shell configuration
-
-Add the following to your shell profile (`~/.zshrc`):
-
-```bash
-# Homebrew
-eval "$($(brew --prefix)/bin/brew shellenv)"
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-
-# Composer global bin
-export PATH="$HOME/.composer/vendor/bin:$HOME/.config/composer/vendor/bin:$PATH"
-
-# Starship prompt
-eval "$(starship init zsh)"
-```
 
 Copy Starship config:
 
