@@ -1,0 +1,28 @@
+{
+    "name": "mikelast/mac-dev-bootstrap",
+    "description": "install general php pcakages used for dev",
+    "authors": [
+        {
+            "name": "virtualLast",
+            "email": "mjlast@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "*",
+        "symfony/phpunit-bridge": "*",
+        "friendsofphp/php-cs-fixer": "*",
+        "phpstan/phpstan": "*",
+        "symfony/maker-bundle": "*",
+        "symfony/console": "*",
+        "symfony/var-dumper": "*",
+        "psy/psysh": "*"
+    },
+    "scripts": {
+        "install-global": [
+            "composer global install"
+        ],
+        "update-global": [
+            "composer global update"
+        ]
+    }
+}

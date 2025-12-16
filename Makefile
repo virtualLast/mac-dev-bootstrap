@@ -1,0 +1,157 @@
+.DEFAULT_GOAL := help
+
+# -----------------------------
+# Paths / config
+# -----------------------------
+
+BREWFILE := Brewfile
+
+NVM_DIR := $(HOME)/.nvm
+NVM := . $(NVM_DIR)/nvm.sh
+
+PHP_VERSIONS := 8.2 8.3 8.4
+
+# -----------------------------
+# Help
+# -----------------------------
+
+.PHONY: help
+help:
+	@echo ""
+	@echo "Bootstrap:"
+	@echo "  make bootstrap       Full setup: brew, node, PHP extensions"
+	@echo "  make brew            Install Homebrew packages from Brewfile"
+	@echo ""
+	@echo "Node:"
+	@echo "  make node            Install all required Node versions"
+	@echo "  make node-16         Install Node 16"
+	@echo "  make node-22         Install Node 22"
+	@echo "  make node-latest     Install latest Node"
+	@echo "  make node-default    Set default Node version"
+	@echo "  make node-list       List installed Node versions"
+	@echo ""
+	@echo "PHP:"
+	@echo "  make php-check       Show active PHP vs Symfony PHP"
+	@echo "  make php-ext         Install all PHP extensions"
+	@echo "  make php-ext-redis   Install redis extension"
+	@echo "  make php-ext-xdebug  Install xdebug extension"
+	@echo ""
+
+# -----------------------------
+# Checks
+# -----------------------------
+
+.PHONY: brew-check
+
+brew-check:
+	@command -v brew >/dev/null 2>&1 || \
+		(echo "" && \
+		 echo "❌ Homebrew is not installed." && \
+		 echo "" && \
+		 echo "Install Homebrew by running:" && \
+		 echo "" && \
+		 echo "    /bin/bash -c \"\$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"" && \
+		 echo "" && \
+		 echo "Then add Homebrew to your shell environment and re-run make." && \
+		 echo "" && \
+		 exit 1)
+
+.PHONY: xcode-check
+
+xcode-check:
+	@xcode-select -p >/dev/null 2>&1 || \
+		(echo "" && \
+		 echo "❌ Xcode Command Line Tools are not installed." && \
+		 echo "" && \
+		 echo "Run the following command, complete the installer," && \
+		 echo "then re-run make:" && \
+		 echo "" && \
+		 echo "    xcode-select --install" && \
+		 echo "" && \
+		 exit 1)
+
+# -----------------------------
+# Homebrew
+# -----------------------------
+
+.PHONY: brew
+brew: brew-check xcode-check
+	@echo "Installing Homebrew packages from $(BREWFILE)..."
+	@brew bundle --file=$(BREWFILE)
+
+# -----------------------------
+# Node / NVM
+# -----------------------------
+
+.PHONY: node node-16 node-22 node-latest node-default node-list
+
+node: node-16 node-22 node-latest node-default
+
+node-16:
+	@echo "Installing Node 16..."
+	@bash -c '$(NVM) && nvm install 16'
+
+node-22:
+	@echo "Installing Node 22..."
+	@bash -c '$(NVM) && nvm install 22'
+
+node-latest:
+	@echo "Installing latest Node..."
+	@bash -c '$(NVM) && nvm install node'
+
+node-default:
+	@echo "Setting default Node version to 22..."
+	@bash -c '$(NVM) && nvm alias default 22'
+
+node-list:
+	@bash -c '$(NVM) && nvm ls'
+
+# -----------------------------
+# PHP sanity & extensions
+# -----------------------------
+
+.PHONY: php-check php-ext php-ext-redis php-ext-xdebug
+
+php-check:
+	@echo ""
+	@echo "System PHP:"
+	@which php
+	@php -v
+	@echo ""
+	@echo "Symfony PHP:"
+	@symfony php -v
+
+php-ext: brew-check xcode-check php-ext-redis php-ext-xdebug
+
+php-ext-redis:
+	@echo "Installing redis extension for PHP versions: $(PHP_VERSIONS)"
+	@for v in $(PHP_VERSIONS); do \
+		echo "→ PHP $$v"; \
+		sphp $$v; \
+		pecl install -f redis || true; \
+	done
+
+php-ext-xdebug:
+	@echo "Installing xdebug extension for PHP versions: $(PHP_VERSIONS)"
+	@for v in $(PHP_VERSIONS); do \
+		echo "→ PHP $$v"; \
+		sphp $$v; \
+		pecl install -f xdebug || true; \
+	done
+
+# -----------------------------
+# Bootstrap target
+# -----------------------------
+
+.PHONY: bootstrap
+
+bootstrap: brew-check xcode-check brew node php-ext
+	@echo ""
+	@echo "✅ Bootstrap complete! Your Mac should now have:"
+	@echo "   - Homebrew packages installed"
+	@echo "   - Node runtimes installed (16, 22, latest)"
+	@echo "   - PHP extensions (redis + xdebug) installed for $(PHP_VERSIONS)"
+	@echo ""
+	@echo "Next steps:"
+	@echo "  - Configure your shell profile for NVM & Starship"
+	@echo "  - Install Composer global packages: composer run-script install-global"
