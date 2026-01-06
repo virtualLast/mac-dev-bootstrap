@@ -106,6 +106,18 @@ make composer-global
 
 ## Shell configuration
 
+Add the following to your `~/.zshrc` (or use the provided `zsh/.zshrc` as a template):
+
+```bash
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# Starship
+eval "$(starship init zsh)"
+```
+
 Copy Starship config:
 
 ```bash

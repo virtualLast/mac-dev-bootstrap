@@ -7,7 +7,7 @@
 BREWFILE := Brewfile
 
 NVM_DIR := $(HOME)/.nvm
-NVM := . $(NVM_DIR)/nvm.sh
+NVM := . /opt/homebrew/opt/nvm/nvm.sh
 
 PHP_VERSIONS := 8.2 8.3 8.4
 COMPOSER_PACKAGES := phpunit/phpunit symfony/phpunit-bridge friendsofphp/php-cs-fixer phpstan/phpstan symfony/maker-bundle symfony/console symfony/var-dumper psy/psysh
@@ -87,7 +87,7 @@ brew: brew-check xcode-check
 
 .PHONY: node node-16 node-22 node-latest node-default node-list
 
-node: node-16 node-22 node-latest node-default
+node: brew node-16 node-22 node-latest node-default
 
 node-16:
 	@echo "Installing Node 16..."
