@@ -13,7 +13,7 @@ brew "htop"
 brew "watch"
 brew "tree"
 brew "starship"
-brew "exa"
+brew "eza"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 

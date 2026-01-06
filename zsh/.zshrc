@@ -64,9 +64,9 @@ alias gss='git show --stat'
 # ---------------------------------------
 # Exa / ls replacements
 # ---------------------------------------
-alias ls='exa'
-alias ll='exa -la --git'
-alias la='exa -a'
+alias ls='eza'
+alias ll='eza -la --git'
+alias la='eza -a'
 
 
 # ---------------------------------------
