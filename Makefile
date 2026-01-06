@@ -10,6 +10,7 @@ NVM_DIR := $(HOME)/.nvm
 NVM := . $(NVM_DIR)/nvm.sh
 
 PHP_VERSIONS := 8.2 8.3 8.4
+COMPOSER_PACKAGES := phpunit/phpunit symfony/phpunit-bridge friendsofphp/php-cs-fixer phpstan/phpstan symfony/maker-bundle symfony/console symfony/var-dumper psy/psysh
 
 # -----------------------------
 # Help
@@ -19,7 +20,7 @@ PHP_VERSIONS := 8.2 8.3 8.4
 help:
 	@echo ""
 	@echo "Bootstrap:"
-	@echo "  make bootstrap       Full setup: brew, node, PHP extensions"
+	@echo "  make bootstrap       Full setup: brew, node, PHP extensions, Composer global"
 	@echo "  make brew            Install Homebrew packages from Brewfile"
 	@echo ""
 	@echo "Node:"
@@ -35,6 +36,7 @@ help:
 	@echo "  make php-ext         Install all PHP extensions"
 	@echo "  make php-ext-redis   Install redis extension"
 	@echo "  make php-ext-xdebug  Install xdebug extension"
+	@echo "  make composer-global Install global Composer packages"
 	@echo ""
 
 # -----------------------------
@@ -145,18 +147,29 @@ php-ext-xdebug:
 	done
 
 # -----------------------------
+# PHP packages
+# -----------------------------
+
+.PHONY: composer-global
+
+composer-global:
+	@echo "Installing global Composer packages..."
+	@composer global require $(COMPOSER_PACKAGES)
+
+# -----------------------------
 # Bootstrap target
 # -----------------------------
 
 .PHONY: bootstrap
 
-bootstrap: brew-check xcode-check brew node sphp php-ext
+bootstrap: brew-check xcode-check brew node sphp php-ext composer-global
 	@echo ""
 	@echo "✅ Bootstrap complete! Your Mac should now have:"
 	@echo "   - Homebrew packages installed"
 	@echo "   - Node runtimes installed (16, 22, latest)"
 	@echo "   - PHP extensions (redis + xdebug) installed for $(PHP_VERSIONS)"
+	@echo "   - Global Composer packages installed"
 	@echo ""
 	@echo "Next steps:"
 	@echo "  - Configure your shell profile for NVM & Starship"
-	@echo "  - Install Composer global packages: composer run-script install-global"
+	@echo "  - Run 'make help' to see more commands"

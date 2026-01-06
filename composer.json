@@ -19,7 +19,7 @@
     },
     "scripts": {
         "install-global": [
-            "composer global install"
+            "make composer-global"
         ],
         "update-global": [
             "composer global update"
