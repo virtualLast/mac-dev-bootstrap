@@ -99,7 +99,7 @@ make php-ext-xdebug
 * Install Composer global tools:
 
 ```bash
-composer run-script install-global
+make composer-global
 ```
 
 ---
@@ -139,7 +139,7 @@ Run `make help` to see all targets.
 ## Updating
 
 * **Homebrew packages:** `brew update && brew upgrade`
-* **Composer global tools:** `composer global update`
+* **Composer global tools:** `make composer-global`
 * **Node globals:** `npm run install-global` (from repo folder)
 
 ---
