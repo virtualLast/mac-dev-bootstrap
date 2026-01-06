@@ -1,7 +1,7 @@
 palette = "dracula"
 
 [aws]
-style = "bold orange"
+disabled = true
 
 [character]
 error_symbol = "[λ](bold red)"
@@ -25,6 +25,12 @@ style = "bold purple"
 [username]
 format = "[$user]($style) on "
 style_user = "bold cyan"
+
+[package]
+disabled = true
+
+[nodejs]
+disabled = true
 
 # Define Dracula color palette
 [palettes.dracula]
