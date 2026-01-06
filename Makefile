@@ -110,7 +110,7 @@ node-list:
 # PHP sanity & extensions
 # -----------------------------
 
-.PHONY: php-check php-ext php-ext-redis php-ext-xdebug
+.PHONY: php-check sphp php-ext php-ext-redis php-ext-xdebug
 
 php-check:
 	@echo ""
@@ -121,7 +121,12 @@ php-check:
 	@echo "Symfony PHP:"
 	@symfony php -v
 
-php-ext: brew-check xcode-check php-ext-redis php-ext-xdebug
+sphp:
+	@echo "Installing sphp..."
+	@curl -L https://raw.githubusercontent.com/rhukster/sphp.sh/main/sphp.sh > /opt/homebrew/bin/sphp
+	@chmod +x /opt/homebrew/bin/sphp
+
+php-ext: brew-check xcode-check sphp php-ext-redis php-ext-xdebug
 
 php-ext-redis:
 	@echo "Installing redis extension for PHP versions: $(PHP_VERSIONS)"
@@ -145,7 +150,7 @@ php-ext-xdebug:
 
 .PHONY: bootstrap
 
-bootstrap: brew-check xcode-check brew node php-ext
+bootstrap: brew-check xcode-check brew node sphp php-ext
 	@echo ""
 	@echo "✅ Bootstrap complete! Your Mac should now have:"
 	@echo "   - Homebrew packages installed"

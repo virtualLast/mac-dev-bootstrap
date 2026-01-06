@@ -23,7 +23,6 @@ brew "zsh-syntax-highlighting"
 brew "php"        # latest stable
 brew "php@8.2"    # legacy support
 brew "composer"
-brew "sphp"
 
 # --------------------------------------------------
 # Symfony
