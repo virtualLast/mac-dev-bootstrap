@@ -1,5 +1,5 @@
 tap "homebrew/bundle"
-tap homebrew/php
+tap "homebrew/php"
 
 # --------------------------------------------------
 # Core CLI tools
