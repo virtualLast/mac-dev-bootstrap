@@ -9,7 +9,7 @@ BREWFILE := Brewfile
 NVM_DIR := $(HOME)/.nvm
 NVM := . /opt/homebrew/opt/nvm/nvm.sh
 
-PHP_VERSIONS := 8.2 8.3 8.4
+PHP_VERSIONS := 8.2 8.3 8.4 8.5
 COMPOSER_PACKAGES := phpunit/phpunit symfony/phpunit-bridge friendsofphp/php-cs-fixer phpstan/phpstan symfony/maker-bundle symfony/console symfony/var-dumper psy/psysh
 NODE_PACKAGES := typescript eslint prettier expo-cli react-native-cli yarn
 
