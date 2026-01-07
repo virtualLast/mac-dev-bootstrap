@@ -11,6 +11,7 @@ NVM := . /opt/homebrew/opt/nvm/nvm.sh
 
 PHP_VERSIONS := 8.2 8.3 8.4
 COMPOSER_PACKAGES := phpunit/phpunit symfony/phpunit-bridge friendsofphp/php-cs-fixer phpstan/phpstan symfony/maker-bundle symfony/console symfony/var-dumper psy/psysh
+NODE_PACKAGES := typescript eslint prettier expo-cli react-native-cli yarn
 
 # -----------------------------
 # Help
@@ -30,6 +31,7 @@ help:
 	@echo "  make node-latest     Install latest Node"
 	@echo "  make node-default    Set default Node version"
 	@echo "  make node-list       List installed Node versions"
+	@echo "  make node-global     Install global Node packages"
 	@echo ""
 	@echo "PHP:"
 	@echo "  make php-check       Show active PHP vs Symfony PHP"
@@ -85,7 +87,7 @@ brew: brew-check xcode-check
 # Node / NVM
 # -----------------------------
 
-.PHONY: node node-16 node-22 node-latest node-default node-list
+.PHONY: node node-16 node-22 node-latest node-default node-list node-global
 
 node: brew node-16 node-22 node-latest node-default
 
@@ -107,6 +109,10 @@ node-default:
 
 node-list:
 	@bash -c '$(NVM) && nvm ls'
+
+node-global:
+	@echo "Installing global Node packages..."
+	@bash -c '$(NVM) && npm install -g $(NODE_PACKAGES)'
 
 # -----------------------------
 # PHP sanity & extensions
@@ -162,11 +168,12 @@ composer-global:
 
 .PHONY: bootstrap
 
-bootstrap: brew-check xcode-check brew node sphp php-ext composer-global
+bootstrap: brew-check xcode-check brew node sphp php-ext composer-global node-global
 	@echo ""
 	@echo "✅ Bootstrap complete! Your Mac should now have:"
 	@echo "   - Homebrew packages installed"
 	@echo "   - Node runtimes installed (16, 22, latest)"
+	@echo "   - Global Node packages installed"
 	@echo "   - PHP extensions (redis + xdebug) installed for $(PHP_VERSIONS)"
 	@echo "   - Global Composer packages installed"
 	@echo ""

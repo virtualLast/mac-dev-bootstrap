@@ -102,6 +102,12 @@ make php-ext-xdebug
 make composer-global
 ```
 
+* Install Node global tools:
+
+```bash
+make node-global
+```
+
 ---
 
 ## Shell configuration
@@ -152,7 +158,7 @@ Run `make help` to see all targets.
 
 * **Homebrew packages:** `brew update && brew upgrade`
 * **Composer global tools:** `make composer-global`
-* **Node globals:** `npm run install-global` (from repo folder)
+* **Node globals:** `make node-global`
 
 ---
 
@@ -171,7 +177,7 @@ Typically under `~/.config/composer` (Composer 2) or `~/.composer` (older versio
 
 ## License
 
-ISC (see `package.json`). Adjust as needed.
+ISC. Adjust as needed.
 
 ### Coming soon:
  - git hub cli
