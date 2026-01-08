@@ -150,7 +150,27 @@ php-ext-xdebug:
 		echo "→ PHP $$v"; \
 		sphp $$v; \
 		pecl install -f xdebug || true; \
+		echo "→ Configuring xdebug for PHP $$v"; \
+		INI_DIR="/opt/homebrew/etc/php/$$v/conf.d"; \
+		INI_FILE="$$INI_DIR/ext-xdebug.ini"; \
+		mkdir -p "$$INI_DIR"; \
+		echo "[xdebug]" > "$$INI_FILE"; \
+		echo "zend_extension=\"xdebug.so\"" >> "$$INI_FILE"; \
+		echo "xdebug.mode=debug" >> "$$INI_FILE"; \
+		echo "xdebug.start_with_request=yes" >> "$$INI_FILE"; \
+		echo "xdebug.client_host=localhost" >> "$$INI_FILE"; \
+		echo "xdebug.client_port=9003" >> "$$INI_FILE"; \
+		echo "xdebug.idekey=PHPSTORM" >> "$$INI_FILE"; \
+		echo "✓ xdebug configured at $$INI_FILE"; \
 	done
+	@echo ""
+	@echo "✅ xdebug installed and configured for all PHP versions"
+	@echo "   - Mode: debug (always active)"
+	@echo "   - Port: 9003 (default for Xdebug 3+)"
+	@echo "   - IDE Key: PHPSTORM"
+	@echo ""
+	@echo "Ready to debug: Just start/stop listening in PhpStorm (port 9003)"
+	@echo ""
 
 # -----------------------------
 # PHP packages
