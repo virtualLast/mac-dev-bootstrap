@@ -157,7 +157,7 @@ php-ext-xdebug:
 		echo "[xdebug]" > "$$INI_FILE"; \
 		echo "zend_extension=\"xdebug.so\"" >> "$$INI_FILE"; \
 		echo "xdebug.mode=debug" >> "$$INI_FILE"; \
-		echo "xdebug.start_with_request=yes" >> "$$INI_FILE"; \
+		echo "xdebug.start_with_request=trigger" >> "$$INI_FILE"; \
 		echo "xdebug.client_host=localhost" >> "$$INI_FILE"; \
 		echo "xdebug.client_port=9003" >> "$$INI_FILE"; \
 		echo "xdebug.idekey=PHPSTORM" >> "$$INI_FILE"; \
